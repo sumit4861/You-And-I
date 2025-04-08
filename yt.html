@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>For My Love 💖 Ankita</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      height: 100vh;
+      background: linear-gradient(to top right, #ffb6c1, #ffe6f0);
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    h1 {
+      font-size: 3rem;
+      color: #d63384;
+      animation: fadeIn 2s ease-in;
+    }
+    .typing {
+      color: #333;
+      font-size: 1.6rem;
+      margin: 20px auto;
+      width: fit-content;
+      white-space: nowrap;
+      border-right: 3px solid #d63384;
+      overflow: hidden;
+      animation: typing 4s steps(40, end), blink 0.7s infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent }
+    }
+
+    .btn {
+      padding: 12px 28px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 20px;
+      margin: 20px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    #yesBtn {
+      background: #28a745;
+      color: white;
+      box-shadow: 0 0 10px #28a745;
+    }
+
+    #yesBtn:hover {
+      transform: scale(1.1);
+      background: #218838;
+    }
+
+    #noBtn {
+      background: #dc3545;
+      color: white;
+      position: absolute;
+      box-shadow: 0 0 10px #dc3545;
+    }
+
+    #noBtn:hover {
+      transform: rotate(10deg);
+    }
+
+    .message {
+      display: none;
+      font-size: 1.6rem;
+      color: #d63384;
+      margin-top: 30px;
+      animation: pop 0.8s ease-out forwards;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: float 5s infinite ease-in-out;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(45deg); opacity: 1; }
+      100% { transform: translateY(-100vh) rotate(45deg); opacity: 0; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <h1>Hey Ankita ❤️</h1>
+  <div class="typing">Will you be mine forever and ever? 💫</div>
+
+  <button class="btn" id="yesBtn">Yes 💘</button>
+  <button class="btn" id="noBtn">No 🙈</button>
+
+  <div class="message" id="finalMessage">Awww 😍 I love you so much, Ankita! 💖 You're my forever. 💍</div>
+
+  <script>
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const message = document.getElementById('finalMessage');
+
+    function moveNoBtn() {
+      const x = Math.random() * (window.innerWidth - 100);
+      const y = Math.random() * (window.innerHeight - 100);
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    }
+
+    noBtn.addEventListener('mouseenter', moveNoBtn);
+    noBtn.addEventListener('click', moveNoBtn);
+
+    yesBtn.addEventListener('click', () => {
+      message.style.display = 'block';
+      for (let i = 0; i < 30; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.top = '100vh';
+        heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
+      }
+    });
+
+    // Initial random position for No button
+    moveNoBtn();
+  </script>
+
+</body>
+</html>
