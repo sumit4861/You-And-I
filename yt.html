@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>For My Love 💖 Ankita</title>
+  <title>For My Love ❤️ Ankita</title>
   <style>
     * {
       margin: 0;
@@ -11,7 +11,7 @@
     }
     body {
       height: 100vh;
-      background: linear-gradient(to top right, #ffb6c1, #ffe6f0);
+      background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
       font-family: 'Segoe UI', sans-serif;
       overflow: hidden;
       position: relative;
@@ -22,80 +22,71 @@
       text-align: center;
     }
     h1 {
-      font-size: 3rem;
-      color: #d63384;
+      font-size: 3.5rem;
+      color: #ffffff;
+      text-shadow: 2px 2px 8px #d63384;
       animation: fadeIn 2s ease-in;
     }
     .typing {
-      color: #333;
-      font-size: 1.6rem;
+      color: #fff;
+      font-size: 1.8rem;
       margin: 20px auto;
       width: fit-content;
       white-space: nowrap;
-      border-right: 3px solid #d63384;
+      border-right: 3px solid #fff;
       overflow: hidden;
       animation: typing 4s steps(40, end), blink 0.7s infinite;
+      text-shadow: 1px 1px 6px #000;
     }
-
     @keyframes typing {
       from { width: 0 }
       to { width: 100% }
     }
-
     @keyframes blink {
       50% { border-color: transparent }
     }
-
     .btn {
-      padding: 12px 28px;
+      padding: 14px 32px;
       font-size: 1.2rem;
       border: none;
-      border-radius: 20px;
-      margin: 20px;
+      border-radius: 30px;
+      margin: 12px;
       cursor: pointer;
       transition: 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
-
     #yesBtn {
       background: #28a745;
       color: white;
-      box-shadow: 0 0 10px #28a745;
     }
-
     #yesBtn:hover {
       transform: scale(1.1);
       background: #218838;
     }
-
     #noBtn {
       background: #dc3545;
       color: white;
       position: absolute;
-      box-shadow: 0 0 10px #dc3545;
     }
-
     #noBtn:hover {
       transform: rotate(10deg);
     }
-
     .message {
       display: none;
-      font-size: 1.6rem;
-      color: #d63384;
+      font-size: 1.8rem;
+      color: #fff;
       margin-top: 30px;
       animation: pop 0.8s ease-out forwards;
+      text-shadow: 1px 1px 6px #d63384;
     }
-
     @keyframes pop {
       from { transform: scale(0); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
     }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(-20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     .heart {
       position: absolute;
       width: 20px;
@@ -104,7 +95,6 @@
       transform: rotate(45deg);
       animation: float 5s infinite ease-in-out;
     }
-
     .heart::before,
     .heart::after {
       content: '';
@@ -114,38 +104,82 @@
       background: red;
       border-radius: 50%;
     }
-
     .heart::before {
       top: -10px;
       left: 0;
     }
-
     .heart::after {
       left: -10px;
       top: 0;
     }
-
     @keyframes float {
       0% { transform: translateY(0) rotate(45deg); opacity: 1; }
       100% { transform: translateY(-100vh) rotate(45deg); opacity: 0; }
     }
-
+    #loveLetter {
+      display: none;
+      margin-top: 30px;
+      max-width: 700px;
+      font-size: 1.3rem;
+      color: #333;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 24px;
+      border-radius: 14px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+    .sparkle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: #fff;
+      border-radius: 50%;
+      animation: sparkle 3s infinite;
+      opacity: 0.6;
+    }
+    @keyframes sparkle {
+      0% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(2); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.6; }
+    }
   </style>
 </head>
 <body>
+  <audio autoplay loop>
+    <source src="love.mp3" type="audio/mpeg">
+  </audio>
 
   <h1>Hey Ankita ❤️</h1>
-  <div class="typing">Will you be mine forever and ever? 💫</div>
+  <div class="typing">Will you be mine forever and ever? 🌟</div>
 
   <button class="btn" id="yesBtn">Yes 💘</button>
   <button class="btn" id="noBtn">No 🙈</button>
+  <button class="btn" id="letterBtn">Open a Secret Letter 💌</button>
 
   <div class="message" id="finalMessage">Awww 😍 I love you so much, Ankita! 💖 You're my forever. 💍</div>
+
+  <div id="loveLetter">
+    <p>Dear Ankita,</p>
+    <p>
+      From the moment we met, I knew you were special. It’s been 4 years of smiles, growth, endless talks, and love.
+      Through every season, you’ve made my world more beautiful just by being in it. 🌸
+    </p>
+    <p>
+      I don’t just love you — I admire you, respect you, and dream of a future where every sunset ends with you by my side.
+    </p>
+    <p>
+      Thank you for being my peace, my strength, and my heart.  
+      This little website is just a piece of how much you mean to me.  
+      I promise to keep loving you deeper, every single day.
+    </p>
+    <p>Forever yours, <br><strong>Sumit ❤️</strong></p>
+  </div>
 
   <script>
     const noBtn = document.getElementById('noBtn');
     const yesBtn = document.getElementById('yesBtn');
     const message = document.getElementById('finalMessage');
+    const letterBtn = document.getElementById('letterBtn');
+    const loveLetter = document.getElementById('loveLetter');
 
     function moveNoBtn() {
       const x = Math.random() * (window.innerWidth - 100);
@@ -159,7 +193,7 @@
 
     yesBtn.addEventListener('click', () => {
       message.style.display = 'block';
-      for (let i = 0; i < 30; i++) {
+      for (let i = 0; i < 40; i++) {
         const heart = document.createElement('div');
         heart.classList.add('heart');
         heart.style.left = Math.random() * 100 + 'vw';
@@ -170,9 +204,19 @@
       }
     });
 
-    // Initial random position for No button
+    letterBtn.addEventListener('click', () => {
+      loveLetter.style.display = 'block';
+    });
+
+    for (let i = 0; i < 60; i++) {
+      const sparkle = document.createElement('div');
+      sparkle.classList.add('sparkle');
+      sparkle.style.left = Math.random() * 100 + 'vw';
+      sparkle.style.top = Math.random() * 100 + 'vh';
+      document.body.appendChild(sparkle);
+    }
+
     moveNoBtn();
   </script>
-
 </body>
 </html>
