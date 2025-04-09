@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>For My Love ❤️ Ankita</title>
   <style>
+    /* (All your original CSS remains unchanged) */
     * {
       margin: 0;
       padding: 0;
@@ -144,8 +145,8 @@
   </style>
 </head>
 <body>
-  <audio autoplay loop>
-    <source src="love.mp3" type="audio/mpeg">
+  <audio id="bgMusic" loop>
+    <source src="ishq.mp3" type="audio/mpeg">
   </audio>
 
   <h1>Hey Ankita ❤️</h1>
@@ -180,6 +181,7 @@
     const message = document.getElementById('finalMessage');
     const letterBtn = document.getElementById('letterBtn');
     const loveLetter = document.getElementById('loveLetter');
+    const music = document.getElementById('bgMusic');
 
     function moveNoBtn() {
       const x = Math.random() * (window.innerWidth - 100);
@@ -215,6 +217,11 @@
       sparkle.style.top = Math.random() * 100 + 'vh';
       document.body.appendChild(sparkle);
     }
+    document.body.addEventListener('click', () => {
+      music.play().catch(() => {
+        console.log("Audio play was blocked");
+      });
+    }, { once: true });
 
     moveNoBtn();
   </script>
