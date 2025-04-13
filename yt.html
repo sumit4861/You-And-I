@@ -195,14 +195,14 @@
 
     yesBtn.addEventListener('click', () => {
       message.style.display = 'block';
-      for (let i = 0; i < 40; i++) {
+      for (let i = 0; i < 150; i++) {
         const heart = document.createElement('div');
         heart.classList.add('heart');
         heart.style.left = Math.random() * 100 + 'vw';
         heart.style.top = '100vh';
         heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
         document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 5000);
+        setTimeout(() => heart.remove(), 50000);
       }
     });
 
