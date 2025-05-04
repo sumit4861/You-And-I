@@ -3,317 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spotify</title>
+    <title>Tic Tac Toe</title>
     <link rel="stylesheet" href="home.css">
 </head>
 <body>
-  <div class="top">
     <div class="heading">
-      <h1>MUSIFY</h1>
-      <p>Enjoy the Music</p>
+        <h1>Tic Tac Toe</h1>
     </div>
-    <ul class="nav">
-      <li onclick="displayAll()">🎵 All Song</li>
-      <li onclick="displayLiked()">❤️ Liked</li>
-      <li onclick="displayFav()">=+ Playlist</li>
-    </ul>
-  </div>
-  <div class="main">
-    <div class="player">
-      <h1 style="display: none;" id="index"></h1>
-      <h2 id="title">Select a Song</h2>
-      <img src="bg.jpg" id="songimg"><br>
-      <audio id="myaudio">
-        <source src="" type="audio/mpeg">
-      </audio>
-      <h3 id="movie"></h3>
-      <ul class="control">
-        <li>
-          <button onclick="play()">▶</button>
-        </li>
-        <li>
-          <button onclick="pause()">⏸</button>
-        </li>
-        <li>
-          <ul>
-            <button onclick="addtolike()">🤍</button>
-            <button onclick="addtofav()">=+</button>
-          </ul>
-        </li>
-      </ul>
+    <div class="match">
+        <h1 onclick="single()">Single Player</h1>
+        <div id="p1">
+            <label>Player 1 : <input type="text" id="player" placeholder="Enter Name"></label>
+        </div>
+        <h1 onclick="double()">Multi Player</h1>
+        <div id="p2">
+            <label>Player 1 : <input type="text" id="player1" placeholder="Enter Name"></label><br>
+            <label>Player 2 : <input type="text" id="player2" placeholder="Enter Name"></label>
+        </div>
+        <button type="submit" id="start" onclick="start()">Start Match</button>
     </div>
-    <div class="songs">
-      <div id="all">
-      </div>
-      <div id="liked">
-      </div>
-      <div id="fav">
-      </div>
-    </div>
-  </div>
-  <script>
-    const curr = document.getElementById('myaudio');
-    const currimg = document.getElementById('songimg');
-    const songs = [
-      {
-        index: '0',
-        title: "Ishq Wala Love",
-        music: "ishqwalalove.m4a",
-        image: "ishqwalalove.jpg",
-        Movie: "Student of The Year"
-      },
-      {
-        index: '1',
-        title: "Dil to Baccha Hai",
-        music: "diltobacchahai.m4a",
-        image: "diltobacchahai.jpg",
-        Movie: "Ishqiya"
-      },
-      {
-        index: '2',
-        title: "Ajj Din Chadeya",
-        music: "ajjdinchadeya.m4a",
-        image: "ajjdinchadeya.jpg",
-        Movie: "Love Aaj Kal"
-      },
-      {
-        index: '3',
-        title: "Enna Sona",
-        music: "ennasona.m4a",
-        image: "ennasona.jpg",
-        Movie: "Ok Jaanu"
-      },
-      {
-        index: '4',
-        title: "Tum Hi Ho",
-        music: "tumhiho.m4a",
-        image: "tumhiho.jpg",
-        Movie: "Aashiqui 2"
-      },
-      {
-        index: '5',
-        title: "Raabta",
-        music: "raabta.m4a",
-        image: "raabta.jpg",
-        Movie: "Agent Vinod"
-      },
-      {
-        index: '6',
-        title: "Tera Ban Jaunga",
-        music: "terabanjaunga.m4a",
-        image: "terabanjaunga.jpeg",
-        Movie: "Kabir Singh"
-      },
-      {
-        index: '7',
-        title: "Sun Saathiya",
-        music: "sunsaathiya.m4a",
-        image: "sunsaathiya.jpg",
-        Movie: "ABCD 2"
-      },
-      {
-        index: '8',
-        title: "Tera Yaar Hoon Main",
-        music: "terayaarhoonmain.m4a",
-        image: "terayaarhoonmain.jpg",
-        Movie: "Sonu Ke Titu Ki Sweety"
-      },
-      {
-        index: '9',
-        title: "Pee Loon",
-        music: "peeloon.m4a",
-        image: "peeloon.jpg",
-        Movie: "Once Upon a Time in Mumbaai"
-      },
-      {
-        index: '10',
-        title: "Galliyan",
-        music: "galliyan.m4a",
-        image: "galliyan.jpg",
-        Movie: "Ek Villain"
-      },
-      {
-        index: '11',
-        title: "Jeene Laga Hoon",
-        music: "jeenelagahoon.m4a",
-        image: "jeenelagahoon.jpg",
-        Movie: "Ramaiya Vastavaiya"
-      },
-      {
-        index: '12',
-        title: "Samjhawan",
-        music: "samjhawan.m4a",
-        image: "samjhawan.jpg",
-        Movie: "Humpty Sharma Ki Dulhania"
-      },
-      {
-        index: '13',
-        title: "Tum Se Hi",
-        music: "tumsehi.m4a",
-        image: "tumsehi.jpg",
-        Movie: "Jab We Met"
-      },
-      {
-        index: '14',
-        title: "Kaise Hua",
-        music: "kaisehua.m4a",
-        image: "kaisehua.jpg",
-        Movie: "Kabir Singh"
-      },
-      {
-        index: '15',
-        title: "Agar Tum Saath Ho",
-        music: "agartumsaathho.m4a",
-        image: "agartumsaathho.jpg",
-        Movie: "Tamasha"
-      }
-    ];
-      
-    const liked = [];
-    const fav =[];
-    function renderSongs() {
-      const container = document.getElementById("all");
-      container.innerHTML = "";
-
-      songs.forEach((song, index) => {
-        const item = document.createElement("div");
-        item.className = "songitem";
-        item.onclick =()=>load(index);
-        const title = document.createElement("span");
-        title.textContent = song.title;
-
-        const like = document.createElement("button");
-        like.className = "like-btn";
-        like.innerHTML = "🤍";
-
-        item.appendChild(title);
-        container.appendChild(item);
-      });
-    }
-
-    // add song to liked songs 
-    function addtolike(){
-      const index = document.getElementById('index').textContent;
-      const song = songs[index];
-
-      if (!liked.some(s => s.title === song.title)) {
-        alert(document.getElementById('title').textContent+" added to Liked Song");
-        liked.push(song);
-        renderLikedSongs();
-      }
-      else{
-        alert("Already Liked")
-      }
-    }
-    function renderLikedSongs() {
-      const container = document.getElementById("liked");
-      container.innerHTML = "";
-
-      liked.forEach((song,index) => {
-        const item = document.createElement("div");
-        item.className = "songitem";
-        item.onclick =()=>load(song.index);
-        const title = document.createElement("span");
-        title.textContent = song.title;
-
-        item.appendChild(title);
-        container.appendChild(item);
-      });
-    }
-
-    // add song to playlist
-    function addtofav(){
-      const index = document.getElementById('index').textContent;
-      const song = songs[index];
-      
-      if (!fav.some(s => s.title === song.title)) {
-        alert(document.getElementById('title').textContent+" added to Playlist");
-        fav.push(song);
-        renderFavSongs();
-      }
-      else {
-        alert("Already in Playlist");
-      }
-    }
-    function renderFavSongs() {
-      const container = document.getElementById("fav");
-      container.innerHTML = "";
-
-      fav.forEach((song,index) => {
-        const item = document.createElement("div");
-        item.className = "songitem";
-        item.onclick =()=>load(song.index);
-        const title = document.createElement("span");
-        title.textContent = song.title;
-
-        item.appendChild(title);
-        container.appendChild(item);
-      });
-    }
-    function load(i){
-      const song = songs[i];
-      document.getElementById('title').innerHTML = song.title;
-      document.getElementById('movie').innerHTML = song.Movie;
-      document.getElementById('songimg').src = song.image;
-      document.getElementById('myaudio').src = song.music;
-      document.getElementById('index').innerText = i;
-      curr.play();
-      currimg.classList.add("rotate");
-    }
-    function remove(i){
-      liked.splice(i,1);
-    }
-    function displayAll(){
-      let content = document.getElementById('all');
-      let like = document.getElementById('liked');
-      let fav = document.getElementById('fav');
-      if(content.style.display === "none") {
-        content.style.display = "block";
-        like.style.display = "none";
-        fav.style.display = "none";
-      } else {
-        content.style.display ="none";
-      }
-    }
-    function displayLiked(){
-      let content = document.getElementById('liked');
-      let all = document.getElementById('all');
-      let fav = document.getElementById('fav');
-      if(content.style.display === "none") {
-        content.style.display = "block";
-        all.style.display = "none";
-        fav.style.display = "none";
-      } else {
-        content.style.display ="none";
-      }
-    }
-    function displayFav(){
-      let content = document.getElementById('fav');
-      let all = document.getElementById('all');
-      let like = document.getElementById('liked');
-      if(content.style.display === "none") {
-        content.style.display = "block";
-        all.style.display = "none";
-        like.style.display = "none";
-      } else {
-        content.style.display ="none";
-      }
-    }
-    function play() {
-      let title=document.getElementById('title').textContent;
-      if(title !== "Select a Song") {
-        curr.play();
-        currimg.classList.add("rotate");
-      }
-    }
-    function pause (){
-      let title=document.getElementById('title').textContent;
-      if(title !== "Select a Song") {
-        curr.pause ();
-        currimg.classList.remove("rotate");
-      }
-    }
-    renderSongs();
-  </script>
+    <script>
+        let issingle = false;
+        let player1 ;
+        let player2 ;
+        function single(){;
+            document.getElementById('p1').style.display = 'flex';
+            document.getElementById('p2').style.display = 'none';
+            document.getElementById('start').style.display = 'block';
+            issingle = true;
+        }
+        function double(){
+            document.getElementById('p2').style.display = 'flex';
+            document.getElementById('p1').style.display = 'none';
+            document.getElementById('start').style.display = 'block';
+            issingle = false;
+        }
+        function start() {
+            if(issingle) {
+                player1 = document.getElementById('player').value.trim();
+                if (!player1) {
+                    alert("Enter Player Name");
+                    return;
+                }
+                localStorage.setItem("p1", player1);
+                localStorage.setItem("p2", "Computer");
+            }
+            else {
+                player1 = document.getElementById('player1').value.trim();
+                player2 = document.getElementById('player2').value.trim();
+                if(!player || !player2) {
+                    alert("Enter Both Players Name");
+                    return ;
+                }
+                if(player1 === player2) {
+                    alert("Players Name must be different.");
+                    return ;
+                }
+                localStorage.setItem("p1", player1);
+                localStorage.setItem("p2", player2);
+            }
+            window.location.href = "game.html";
+        }
+    </script>
 </body>
 </html>

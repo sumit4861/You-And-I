@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="game.css">
+</head>
+<body>
+    <div class="heading">
+        <h1>Tic Tac Toe</h1>
+    </div>
+    <div class="box">
+        <div id="11" onclick="update('11')"></div>
+        <div id="12" onclick="update('12')"></div>
+        <div id="13" onclick="update('13')"></div>
+        <div id="21" onclick="update('21')"></div>
+        <div id="22" onclick="update('22')"></div>
+        <div id="23" onclick="update('23')"></div>
+        <div id="31" onclick="update('31')"></div>
+        <div id="32" onclick="update('32')"></div>
+        <div id="33" onclick="update('33')"></div>
+    </div>
+    <div id="turn"></div>
+    <script>
+        //players Name
+        const p1 = localStorage.getItem("p1");
+        const p2 = localStorage.getItem("p2");
+        document.getElementById('turn').textContent = p1 + "'s Turns (X)";
+
+        const x11 = document.getElementById('11');
+        const x12 = document.getElementById('12');
+        const x13 = document.getElementById('13');
+        const x21 = document.getElementById('21');
+        const x22 = document.getElementById('22');
+        const x23 = document.getElementById('23');
+        const x31 = document.getElementById('31');
+        const x32 = document.getElementById('32');
+        const x33 = document.getElementById('33');
+        const grid = [[x11, x12, x13],[x21, x22, x23],[x31, x32, x33]];
+        var x = true;
+        function update(n){
+            if(document.getElementById(n).textContent !== '') return;
+            if(x) {
+                document.getElementById(n).innerHTML = 'X';
+                x = !x;
+                if(p2 === "Computer") {
+                    if(check()) {
+                        x = true;
+                        return;
+                    }
+                    document.getElementById('turn').textContent = p1 + "'s Turn (X)";
+
+                    // check();
+                    setTimeout(() => {
+                        box = document.querySelectorAll('.box div');
+                        while(true) {
+                            const index = Math.floor(Math.random() * box.length);
+                            if(box[index].innerHTML === '') {
+                                box[index].innerHTML = 'O';
+                                break;
+                            }
+                        }
+                        x = !x;
+                        document.getElementById('turn').textContent = p1 + "'s Turn (X)";
+                        check();
+                    },800);
+                    return;
+                }
+            }
+            else {
+                document.getElementById(n).innerHTML = 'O';
+                x = !x;
+            }
+            if(!x) document.getElementById('turn').textContent = p2 + "'s Turn (O)";
+            else document.getElementById('turn').textContent = p1 + "'s Turn (X)";
+            check();
+        }
+        function check(){
+            for(i = 0; i<3 ;i++) {
+                if(grid[i][0].textContent === grid[i][1].textContent && grid[i][2].textContent === grid[i][1].textContent && grid[i][0].textContent !==''){
+                    if(!x) document.getElementById('turn').textContent = p1 + ' Won, ' + p2 + ' will start the Match';
+                    else document.getElementById('turn').textContent = p2 + ' Won, ' + p1 + ' will start the Match';
+                    reset();
+                    if(p2 === "Computer" && !x) {
+                        setTimeout(() => {
+                        box = document.querySelectorAll('.box div');
+                        while(true) {
+                            const index = Math.floor(Math.random() * box.length);
+                            if(box[index].innerHTML === '') {
+                                box[index].innerHTML = 'O';
+                                break;
+                            }
+                        }
+                        x = !x;
+                        document.getElementById('turn').textContent = p1 + "'s Turn (X)";
+                        x = !x;
+                        document.getElementById('turn').textContent = p1 + "'s Turn (X)";
+                        check();
+                    },800);
+                    }
+                    return true;
+                }
+                else if(grid[0][i].textContent === grid[1][i].textContent && grid[2][i].textContent === grid[1][i].textContent && grid[0][i].textContent !==''){
+                    if(!x) document.getElementById('turn').textContent = p1 + ' Won, ' + p2 + ' will start the Match';
+                    else document.getElementById('turn').textContent = p2 + ' Won ,' + p1 + ' will start the Match';
+                    reset();
+                    if(p2 === "Computer" && !x) {
+                        setTimeout(() => {
+                        box = document.querySelectorAll('.box div');
+                        while(true) {
+                            const index = Math.floor(Math.random() * box.length);
+                            if(box[index].innerHTML === '') {
+                                box[index].innerHTML = 'O';
+                                break;
+                            }
+                        }
+                        x = !x;
+                        document.getElementById('turn').textContent = p1 + "'s Turn (X)";
+                        x = !x;
+                        document.getElementById('turn').textContent = p1 + "'s Turn (X)";
+                        check();
+                    },800);
+                    }
+                    return true;
+                }
+            }
+            if((grid[0][0].textContent === grid[1][1].textContent && grid[1][1].textContent === grid[2][2].textContent && grid[0][0].textContent !== '') || (grid[0][2].textContent == grid[1][1].textContent && grid[1][1].textContent == grid[2][0].textContent && grid[0][2].textContent != '')){
+                if(!x) document.getElementById('turn').textContent = p1 + ' Won, ' + p2 + ' will start the Match';
+                else document.getElementById('turn').textContent = p2 + ' Won, ' + p1 + ' will start the Match';
+                reset();
+                    if(p2 === "Computer" && !x) {
+                        setTimeout(() => {
+                        box = document.querySelectorAll('.box div');
+                        while(true) {
+                            const index = Math.floor(Math.random() * box.length);
+                            if(box[index].innerHTML === '') {
+                                box[index].innerHTML = 'O';
+                                break;
+                            }
+                        }
+                        x = !x;
+                        document.getElementById('turn').textContent = p1 + "'s Turn (X)";
+                        x = !x;
+                        document.getElementById('turn').textContent = p1 + "'s Turn (X)";
+                        check();
+                    },800);
+                    }
+                return true;
+            }
+
+            let count = 0;
+            const divs = document.querySelectorAll('.box div'); 
+            divs.forEach(div => {
+                if(div.textContent !== '') count++; 
+            });
+            if(count === 9) {
+                document.getElementById('turn').textContent = "Match tie";
+                reset();
+            }
+            return false;
+            
+        }
+        function reset(){
+            const divs = document.querySelectorAll('.box div'); 
+            divs.forEach(div => {
+                div.textContent = '';        
+            });
+        }
+    </script>
+</body>
+</html>
