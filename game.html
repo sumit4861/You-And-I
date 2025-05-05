@@ -39,9 +39,15 @@
         const x33 = document.getElementById('33');
         const grid = [[x11, x12, x13],[x21, x22, x23],[x31, x32, x33]];
         var x = true;
+        const tap = new Audio('tap.mp3');
         function update(n){
-            if(document.getElementById(n).textContent !== '') return;
+            if(document.getElementById(n).textContent !== '') {
+                const sound = new Audio('wrong.mp3');
+                sound.play();
+                return;
+            }
             if(x) {
+                tap.play();
                 document.getElementById(n).innerHTML = 'X';
                 x = !x;
                 if(p2 === "Computer") {
@@ -51,12 +57,12 @@
                     }
                     document.getElementById('turn').textContent = p1 + "'s Turn (X)";
 
-                    // check();
                     setTimeout(() => {
                         box = document.querySelectorAll('.box div');
                         while(true) {
                             const index = Math.floor(Math.random() * box.length);
                             if(box[index].innerHTML === '') {
+                                tap.play();
                                 box[index].innerHTML = 'O';
                                 break;
                             }
@@ -69,6 +75,7 @@
                 }
             }
             else {
+                tap.play();
                 document.getElementById(n).innerHTML = 'O';
                 x = !x;
             }
@@ -77,10 +84,12 @@
             check();
         }
         function check(){
+            const win = new Audio('winning.wav');
             for(i = 0; i<3 ;i++) {
                 if(grid[i][0].textContent === grid[i][1].textContent && grid[i][2].textContent === grid[i][1].textContent && grid[i][0].textContent !==''){
                     if(!x) document.getElementById('turn').textContent = p1 + ' Won, ' + p2 + ' will start the Match';
                     else document.getElementById('turn').textContent = p2 + ' Won, ' + p1 + ' will start the Match';
+                    win.play();
                     reset();
                     if(p2 === "Computer" && !x) {
                         setTimeout(() => {
@@ -88,6 +97,7 @@
                         while(true) {
                             const index = Math.floor(Math.random() * box.length);
                             if(box[index].innerHTML === '') {
+                                tap.play();
                                 box[index].innerHTML = 'O';
                                 break;
                             }
@@ -104,6 +114,7 @@
                 else if(grid[0][i].textContent === grid[1][i].textContent && grid[2][i].textContent === grid[1][i].textContent && grid[0][i].textContent !==''){
                     if(!x) document.getElementById('turn').textContent = p1 + ' Won, ' + p2 + ' will start the Match';
                     else document.getElementById('turn').textContent = p2 + ' Won ,' + p1 + ' will start the Match';
+                    win.play();
                     reset();
                     if(p2 === "Computer" && !x) {
                         setTimeout(() => {
@@ -111,6 +122,7 @@
                         while(true) {
                             const index = Math.floor(Math.random() * box.length);
                             if(box[index].innerHTML === '') {
+                                tap.play();
                                 box[index].innerHTML = 'O';
                                 break;
                             }
@@ -128,6 +140,7 @@
             if((grid[0][0].textContent === grid[1][1].textContent && grid[1][1].textContent === grid[2][2].textContent && grid[0][0].textContent !== '') || (grid[0][2].textContent == grid[1][1].textContent && grid[1][1].textContent == grid[2][0].textContent && grid[0][2].textContent != '')){
                 if(!x) document.getElementById('turn').textContent = p1 + ' Won, ' + p2 + ' will start the Match';
                 else document.getElementById('turn').textContent = p2 + ' Won, ' + p1 + ' will start the Match';
+                win.play();
                 reset();
                     if(p2 === "Computer" && !x) {
                         setTimeout(() => {
@@ -135,6 +148,7 @@
                         while(true) {
                             const index = Math.floor(Math.random() * box.length);
                             if(box[index].innerHTML === '') {
+                                tap.play();
                                 box[index].innerHTML = 'O';
                                 break;
                             }
