@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Room</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="chatbox" >
+        <h1>Welcome to Chat Room</h1>
+        <fieldset class="margin" id="chatbox"></fieldset>
+    </div>
+    <input type="text" id="messageInput" placeholder="Type your message..." />
+    <button onclick="sendMessage()">Send</button>
+
+    <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+    import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAM11B98IeBUw4fkjmMz1nLTJ1IBDaLo6E",
+      authDomain: "real-time-chat-e169c.firebaseapp.com",
+      databaseURL: "https://real-time-chat-e169c-default-rtdb.asia-southeast1.firebasedatabase.app",
+
+      projectId: "real-time-chat-e169c",
+      storageBucket: "real-time-chat-e169c.appspot.com",
+      messagingSenderId: "78683773226",
+      appId: "1:78683773226:web:07a9fdbe50836af6716653"
+    };
+    
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    const name = localStorage.getItem("username") || "Anonymous";
+    const room = localStorage.getItem("room") ;
+    window.sendMessage = function () {
+      const input = document.getElementById("messageInput");
+      const text = input.value.trim();
+      if (text) {
+        push(ref(db, `rooms/${room}/messages`), {
+          username: name,
+          text: text,
+          timestamp: Date.now()
+        });
+        input.value = "";
+      }
+    };
+
+    const chatBox = document.getElementById("chatbox");
+    onChildAdded(ref(db, `rooms/${room}/messages`), (snapshot) => {
+      const data = snapshot.val();
+      const isOwn = data.username === name;
+
+      const wrap = document.createElement("fieldset");
+      wrap.style.display = "inline-block";  
+      wrap.style.minWidth = "100px";  
+      wrap.style.backgroundColor = "white";
+      wrap.style.margin = "2px";
+      wrap.style.padding = "10px 12px";
+      wrap.style.borderRadius = "22px";
+      wrap.style.wordBreak = "break-word";
+      wrap.style.overflowWrap = "break-word";
+      wrap.style.boxShadow = "0 4px 10px rgba(50, 50, 50, 0.174), 0 10px 20px rgba(55, 55, 55, 0.216)";
+      wrap.style.border = "none";
+
+      const user = document.createElement("legend");
+      user.textContent = `${data.username}`;
+      user.style.fontWeight = "bold";
+
+      const msg = document.createElement("div");
+      msg.textContent = `${data.text}`;
+
+      const t = new Date(data.timestamp);
+      const time = document.createElement("p");
+      const msgtime = t.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+      });
+
+      time.textContent = msgtime;
+      time.style.textAlign = "right";
+      time.style.marginBottom = "0";
+      time.style.marginTop = "0";
+      time.style.fontStyle = "italic";
+      time.style.color = "grey";
+      time.style.fontSize = "10px";
+      
+      const container = document.createElement("div");
+      container.style.display = "flex";
+      container.style.justifyContent = isOwn ? "flex-end" : "flex-start";
+
+      wrap.appendChild(user);
+      wrap.appendChild(msg);
+      wrap.appendChild(time);
+      container.appendChild(wrap);
+      chatBox.appendChild(container);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    });
+
+  </script>
+</body>
+</html>
