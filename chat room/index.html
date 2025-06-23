@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time chat</title>
+    <style>
+        body{
+            background: linear-gradient(to bottom right, #a0eaf4, rgb(247, 154, 154));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-top: 10px;
+            height: 100vh;
+        }
+        div {
+            background-color: #fbcfec;
+            padding: 15px;
+            height: 200px;
+            border-radius: 10px;
+            transform: rotateX(20deg);
+            box-shadow: 2px 2px 2px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow:
+                inset 0 40px 100px rgba(212, 76, 158, 0.174),
+                inset 0px 0px 20px 10px rgba(55, 55, 55, 0.216);
+        }
+        label{
+            color: #2E2E2E;
+            font-size: 1.5rem;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        input, button{
+            height: 30px;
+            font-size: 1rem;
+            border-radius: 4px;
+            margin: 10px 0px 10px 0px;
+            border: none;
+        }
+        button{
+            transition: transform 0.2s;
+            background-color: rgb(241, 179, 179);
+            border: #a0eaf4;
+        }
+        button:hover{
+            transform: scale3d(1.1, 0.9, 1) skewX(5deg);
+            transition: transform 0.3s ease;
+            
+        }
+        h1{
+            text-align: center;
+            font-size: 2.5rem;
+            margin-top: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div class="user">
+        <h1>Real time chatting</h1>
+        <label>Enter Your Name</label>
+        <input type="text" id="name" placeholder="Type you name">
+        <input type="text" id="room" placeholder="Enter Room ID">
+        <button onclick="enterchat()" type="button">
+            Enter to Chat Room
+        </button>
+    </div>
+    <script>
+        function enterchat() {
+            const name = document.getElementById("name").value.trim();
+            const room = document.getElementById("room").value.trim();
+            if(name && room) {
+                localStorage.setItem("username", name);
+                localStorage.setItem("room", room);
+                window.location.href = "chat.html";
+            }
+            else alert('Please Enter Your Name and Room ID');
+        }
+    </script>
+</body>
+</html>
