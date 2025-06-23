@@ -19,15 +19,15 @@
     import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-database.js";
 
     const firebaseConfig = {
-      apiKey: "AIzaSyAM11B98IeBUw4fkjmMz1nLTJ1IBDaLo6E",
-      authDomain: "real-time-chat-e169c.firebaseapp.com",
-      databaseURL: "https://real-time-chat-e169c-default-rtdb.asia-southeast1.firebasedatabase.app",
+  apiKey: import.meta.env.API_KEY,
+  authDomain: "real-time-chat-e169c.firebaseapp.com",
+  databaseURL: "https://real-time-chat-e169c-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "real-time-chat-e169c",
+  storageBucket: "real-time-chat-e169c.appspot.com",
+  messagingSenderId: "78683773226",
+  appId: "1:78683773226:web:07a9fdbe50836af6716653"
+};
 
-      projectId: "real-time-chat-e169c",
-      storageBucket: "real-time-chat-e169c.appspot.com",
-      messagingSenderId: "78683773226",
-      appId: "1:78683773226:web:07a9fdbe50836af6716653"
-    };
     
 
     const app = initializeApp(firebaseConfig);
