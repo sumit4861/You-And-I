@@ -66,20 +66,13 @@
       wrap.style.overflowWrap = "break-word";
       wrap.style.boxShadow = "0 4px 10px rgba(50, 50, 50, 0.174), 0 10px 20px rgba(55, 55, 55, 0.216)";
       wrap.style.border = "none";
-      if(isOwn) {
-        wrap.addEventListener("dblclick", ()=> {
-          const msgToDelete = ref(db, `rooms/${room}/messages/${key}`);
-          remove(msgToDelete);
-          wrap.remove();
-        });
-      }
       const user = document.createElement("legend");
       user.textContent = `${data.username}`;
       user.style.fontWeight = "bold";
-
+      
       const msg = document.createElement("div");
       msg.textContent = `${data.text}`;
-
+      
       const t = new Date(data.timestamp);
       const time = document.createElement("p");
       const msgtime = t.toLocaleTimeString('en-US', {
@@ -87,7 +80,7 @@
         minute: '2-digit',
         hour12: true
       });
-
+      
       time.textContent = msgtime;
       time.style.textAlign = "right";
       time.style.marginBottom = "0";
@@ -95,6 +88,16 @@
       time.style.fontStyle = "italic";
       time.style.color = "grey";
       time.style.fontSize = "10px";
+
+      if(isOwn) {
+        wrap.addEventListener("dblclick", ()=> {
+          const msgToDelete = ref(db, `rooms/${room}/messages/${key}`);
+          remove(msgToDelete);
+          wrap.textContent = "This Message was Deleted";
+          // msgtime = getDate();
+          // wrap.remove();
+        });
+      }
       
       const container = document.createElement("div");
       container.style.display = "flex";
