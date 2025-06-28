@@ -13,10 +13,10 @@
     </div>
     <input type="text" id="messageInput" placeholder="Type your message..." />
     <button onclick="sendMessage()">Send</button>
-
+    
     <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
-    import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-database.js";
+    import { getDatabase, ref, push, onChildAdded, remove } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-database.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyAM11B98IeBUw4fkjmMz1nLTJ1IBDaLo6E",
@@ -32,7 +32,7 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
-
+    
     const name = localStorage.getItem("username") || "Anonymous";
     const room = localStorage.getItem("room") ;
     window.sendMessage = function () {
@@ -52,6 +52,7 @@
     onChildAdded(ref(db, `rooms/${room}/messages`), (snapshot) => {
       const data = snapshot.val();
       const isOwn = data.username === name;
+      const key = snapshot.key;
 
       const wrap = document.createElement("fieldset");
       wrap.style.display = "inline-block";  
@@ -64,7 +65,13 @@
       wrap.style.overflowWrap = "break-word";
       wrap.style.boxShadow = "0 4px 10px rgba(50, 50, 50, 0.174), 0 10px 20px rgba(55, 55, 55, 0.216)";
       wrap.style.border = "none";
-
+      if(isOwn) {
+        wrap.addEventListener("dblclick", ()=> {
+          const msgToDelete = ref(db, `rooms/${room}/messages/${key}`);
+          remove(msgToDelete);
+          wrap.remove();
+        });
+      }
       const user = document.createElement("legend");
       user.textContent = `${data.username}`;
       user.style.fontWeight = "bold";
