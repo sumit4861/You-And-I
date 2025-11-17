@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify</title>
+    <script src = "home_script.js" defer></script>
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+  <div class="top">
+    <div class="heading">
+      <h1>MUSIFY</h1>
+      <p>Enjoy the Music</p>
+    </div>
+    <ul class="nav">
+      <li onclick="displayAll()">🎵 All Song</li>
+      <li onclick="displayLiked()">❤️ Liked</li>
+      <li onclick="displayFav()">=+ Playlist</li>
+    </ul>
+  </div>
+  <div class="main">
+    <div class="player">
+      <h1 style="display: none;" id="index"></h1>
+      <h2 id="title">Select a Song</h2>
+      <img src="bg.jpg" id="songimg"><br>
+      <audio id="myaudio">
+        <source src="" type="audio/mpeg">
+      </audio>
+      <h3 id="movie"></h3>
+      <ul class="control">
+        <li>
+          <button onclick="play()">▶</button>
+        </li>
+        <li>
+          <button onclick="pause()">⏸</button>
+        </li>
+        <li>
+          <ul>
+            <button onclick="addtolike()">🤍</button>
+            <button onclick="addtofav()">=+</button>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="songs">
+      <div id="all">
+      </div>
+      <div id="liked">
+      </div>
+      <div id="fav">
+      </div>
+    </div>
+  </div>
+</body>
+</html>

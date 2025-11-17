@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="main_style.css">
+</head>
+<body>
+    <div class="heading">
+        <h1>Tic Tac Toe</h1>
+    </div>
+    <div class="match">
+        <h1 onclick="single()">Single Player</h1>
+        <div id="p1">
+            <label>Player 1 : <input type="text" id="player" placeholder="Enter Name"></label>
+        </div>
+        <h1 onclick="double()">Multi Player</h1>
+        <div id="p2">
+            <label>Player 1 : <input type="text" id="player1" placeholder="Enter Name"></label><br>
+            <label>Player 2 : <input type="text" id="player2" placeholder="Enter Name"></label>
+        </div>
+        <button type="submit" id="start" onclick="start()">Start Match</button>
+    </div>
+    <script>
+        let issingle = false;
+        let player1 ;
+        let player2 ;
+        function single(){;
+            document.getElementById('p1').style.display = 'flex';
+            document.getElementById('p2').style.display = 'none';
+            document.getElementById('start').style.display = 'block';
+            issingle = true;
+        }
+        function double(){
+            document.getElementById('p2').style.display = 'flex';
+            document.getElementById('p1').style.display = 'none';
+            document.getElementById('start').style.display = 'block';
+            issingle = false;
+        }
+        function start() {
+            if(issingle) {
+                player1 = document.getElementById('player').value.trim();
+                if (!player1) {
+                    alert("Enter Player Name");
+                    return;
+                }
+                localStorage.setItem("p1", player1);
+                localStorage.setItem("p2", "Computer");
+            }
+            else {
+                player1 = document.getElementById('player1').value.trim();
+                player2 = document.getElementById('player2').value.trim();
+                if(!player || !player2) {
+                    alert("Enter Both Players Name");
+                    return ;
+                }
+                if(player1 === player2) {
+                    alert("Players Name must be different.");
+                    return ;
+                }
+                localStorage.setItem("p1", player1);
+                localStorage.setItem("p2", player2);
+            }
+            window.location.href = "game.html";
+        }
+    </script>
+</body>
+</html>
